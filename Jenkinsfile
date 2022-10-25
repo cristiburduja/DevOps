@@ -19,12 +19,10 @@ pipeline {
     stages {    //different stages 
 
         stage('build') {
-
-              when {
+            when {
                     expression {
-                        params.exeuteTests == true   // daca e true, se va executa steps
-                    }
-            }
+                        BRANCH_NAME == 'devops' && CODE_CHANGES == true   //enviroment variable; daca se indeplineste, se executa steps
+                    } 
             steps {
                 // if you use java here goes : sh 'npm install'  sh 'npm build'
                 echo 'Hello build'
@@ -36,9 +34,9 @@ pipeline {
             }
            stage('test') {
             when {
-                    expression {
-                        BRANCH_NAME == 'devops' && CODE_CHANGES == true   //enviroment variable; daca se indeplineste, se executa steps
-                    } 
+                expression {
+                        params.exeuteTests == true   // daca e true, se va executa steps
+                    }
             }
             steps {
                 echo 'test'
@@ -46,13 +44,12 @@ pipeline {
             }
             stage('deploy') {
             steps {
-                echo 'deployyy'
                 echo "deploy with ${SERVER_CREDENTIALS}"
                 withCredentials([
                     usernamePassword(credentials: 'server-credentials',usernameVariable: USER, passwordVariable: PWD)
                     ]) 
                         {
-                            echo "some script ${USER} and ${PWD}"
+                            echo "some script ${USER} and ${PWD}"  // sh sau bat 
                         }
                 }
             }
