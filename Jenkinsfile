@@ -1,15 +1,15 @@
 pipeline { 
     agent any  // node 
-    enviroment {
+    enviromment {
             NEW_VERSION = '1.3'
             SERVER_CREDENTIALS = credentials('server-credentials')   //ID ul de la Credentials intre '', pe care il adaugi cand dai Add Credentials
 
     } 
     parameters{
 
-        string(name: 'Version', defaultvalue: '')
+        string(name: 'Version', defaultValue: '')
         choice (name: 'Version', choices: ['1.1','1.2'])
-        booleanParam(name: 'executeTests',defaultvalue: true)
+        booleanParam(name: 'executeTests',defaultValue: true)
     }
     tools { //for a front end :maven,gradle
         maven 'Maven'  // dupa maven trebuie sa pui numele din Global tool configuration de la Name
