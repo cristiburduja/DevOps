@@ -1,6 +1,6 @@
 pipeline { 
     agent any  // node 
-    enviromment {
+    environment {
             NEW_VERSION = '1.3'
             SERVER_CREDENTIALS = credentials('server-credentials')   //ID ul de la Credentials intre '', pe care il adaugi cand dai Add Credentials
 
