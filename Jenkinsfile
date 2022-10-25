@@ -17,17 +17,32 @@ pipeline {
 
     }
     stages {    //different stages 
+        stage ('init'){
 
-        stage('build') {
-            when {
-                    expression {
-                        BRANCH_NAME == 'devops' || CODE_CHANGES == true   //enviroment variable; daca se indeplineste, se executa steps
-                    } 
+            steps {
+                   // groovy starts
+                script {
+                        gv =script.groovy   //numele fileului; aici cumva importi functiile
+
+                }
+
             }
+        }
+        stage('build') {
+            // when {
+            //         expression {
+            //             BRANCH_NAME == 'devops' && CODE_CHANGES == true   //enviroment variable; daca se indeplineste, se executa steps
+            //         } 
+            // }
             steps {
                 // if you use java here goes : sh 'npm install'  sh 'npm build'
-                echo 'Hello build'
-                echo "building version ${NEW_VERSION}"
+                // echo 'Hello build'
+                // echo "building version ${NEW_VERSION}"
+                script{
+                    gv.buildApp()
+                }
+               
+
                 //sh "mvn install"   // sh ca sa execute shell script, bat ca sa execute batch 
 
 
@@ -45,14 +60,11 @@ pipeline {
             }
             stage('deploy') {
             steps {
-                echo "deploy with ${SERVER_CREDENTIALS}"
-                withCredentials([
-                    usernamePassword(credentials: 'server-credentials',usernameVariable: USER, passwordVariable: PWD)
-                    ]) 
-                        {
-                            echo "some script ${USER} and ${PWD}"  // sh sau bat 
-                        }
+            script{
+                gv.deployApp()
+            }
+                
                 }
             }
         }
-    }
+     }
