@@ -23,6 +23,7 @@ pipeline {
                     expression {
                         BRANCH_NAME == 'devops' && CODE_CHANGES == true   //enviroment variable; daca se indeplineste, se executa steps
                     } 
+            }
             steps {
                 // if you use java here goes : sh 'npm install'  sh 'npm build'
                 echo 'Hello build'
@@ -55,4 +56,3 @@ pipeline {
             }
         }
     }
-}
