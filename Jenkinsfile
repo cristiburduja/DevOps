@@ -21,7 +21,7 @@ pipeline {
         stage('build') {
             when {
                     expression {
-                        BRANCH_NAME == 'devops' && CODE_CHANGES == true   //enviroment variable; daca se indeplineste, se executa steps
+                        BRANCH_NAME == 'devops' || CODE_CHANGES == true   //enviroment variable; daca se indeplineste, se executa steps
                     } 
             }
             steps {
