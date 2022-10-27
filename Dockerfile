@@ -5,6 +5,5 @@ COPY . /home/app/
 
 WORKDIR /home/app
 
-RUN javac Main.java
-
+RUN maven package
 CMD ["java", "Main"]
