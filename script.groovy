@@ -2,6 +2,7 @@ def buildApp()
 {
 
 	echo "build with groovy"
+	sh 'mvn package'
 
 }
 
